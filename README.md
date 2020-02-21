@@ -2,7 +2,7 @@
 A library that allows you to launch NosTale client without GF launcher, or create your own private server launcher that starts the game client in the server selection screen (you skip the login & pass window)
 
 # Emulating GF launcher
-The launcher communicates with the game using [named pipe](https://docs.microsoft.com/en-us/windows/win32/ipc/named-pipes) using [JSON-RPC](https://en.wikipedia.org/wiki/JSON-RPC) protocol.
+The launcher communicates with the game using [named pipe](https://docs.microsoft.com/en-us/windows/win32/ipc/named-pipes) and [JSON-RPC](https://en.wikipedia.org/wiki/JSON-RPC) protocol.
 
 # Preparation
 Before the game is started GF launcher creates two environment variables:
@@ -10,10 +10,10 @@ Before the game is started GF launcher creates two environment variables:
 * `_TNT_SESSION_ID` - This var contains random [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) to identify game client in the launcher (in case you run multiple game clients)
 
 ## What is the puprose of those vars?
-* `_TNT_CLIENT_APPLICATION_ID` helps to locate the GF client installation folder, the game reads it from registry key `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall{THE_UUID_FROM_VAR}_is1` in order to locate the `gameforge_client_api.dll`. If the var doesn't exists the game try to grab the dll from the game folder itself. So if you don't set the var you need to copy the dll manually from GF launcher to game folder.
-* `_TNT_SESSION_ID` the var also isn't mandatory, you don't have to set it - to make things simpler.
+* `_TNT_CLIENT_APPLICATION_ID` helps to locate the GF client installation folder, the game reads it from registry key `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall{THE_UUID_FROM_VAR}_is1` in order to locate the `gameforge_client_api.dll`. If the var doesn't exist the game tries to grab the dll from the game folder itself. So if you don't set the var you need to copy the dll manually from GF launcher to game folder.
+* `_TNT_SESSION_ID` the var also isn't mandatory, you don't have to set it if you want to make things simpler.
 
-Please note, as long as you don't set those vars you are fine, however if you for some reasons want to do that **do NOT set those variables as global windows envrironments, instead set it as local vars for your process**
+Please note, as long as you don't set those vars you are fine, however if you for some reasons want to do that **do NOT set those variables as global windows environments, instead set it as local vars for your process**
 
 # The pipe
 The next step before launching the game is to create MS Windows pipe named `\\.\pipe\GameforgeClientJSONRPC` using `CreateNamedPipe` winapi func with duplex and byte modes. Then you need to launch the game client with `gf` parameter, and wait for the informations sent over pipe using `ConnectNamedPipe`
