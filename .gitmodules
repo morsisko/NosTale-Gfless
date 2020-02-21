@@ -1,0 +1,3 @@
+[submodule "ntauth"]
+	path = ntauth
+	url = https://github.com/morsisko/NosTale-Auth
