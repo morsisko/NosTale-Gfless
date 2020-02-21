@@ -81,3 +81,12 @@ It looks like it really doesn't matter what display name you will send, you will
 * All the communication is done in JSON format, it looks really strange here because it is in escaped format, however any proper json should be accepted.
 * If you dont set the `_TNT_SESSION_ID` then `SESSION_FROM_TNT_SESSION_ID` will be empty in all the messages exchanged between launcher and game, however this doesn't really matter
 * **After each packet send you may have to create the pipe again using `CreateNamedPipe`**
+
+# Running example server
+In order to run the example server you need to:
+* Install python3 (remember, set the checkbox with "Add to PATH")
+* Modify the very first line of server.py to **set the correct game path**
+* Install the `requests` and `pywin32` libraries, you can do it easily using `pip`
+* Run the shell with admin permissions and execute the `python server.py <email> <password>`
+
+NOTE: If you don't have the GF launcher installed you firstly need to put the `gameforge_client_api.dll` into the game folder, and comment out the line with `os.environ["_TNT_CLIENT_APPLICATION_ID"] = ....`
