@@ -6,10 +6,10 @@ The launcher communicates with the game using [named pipe](https://docs.microsof
 
 # Preparation
 Before the game is started GF launcher creates two environment variables:
-* `_TNT_CLIENT_APPLICATION_ID` - This is the UUID that is stored in windows registry, it is probably const for the GF launcher itself.
+* `_TNT_CLIENT_APPLICATION_ID` - This is the [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) that is stored in windows registry, it is probably const for the GF launcher itself.
 * `_TNT_SESSION_ID` - This var contains random [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) to identify game client in the launcher (in case you run multiple game clients)
 
-## What is the puprose of those vars?
+## What is the purpose of those vars?
 * `_TNT_CLIENT_APPLICATION_ID` helps to locate the GF client installation folder, the game reads it from registry key `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall{THE_UUID_FROM_VAR}_is1` in order to locate the `gameforge_client_api.dll`. If the var doesn't exist the game tries to grab the dll from the game folder itself. So if you don't set the var you need to copy the dll manually from GF launcher to game folder.
 * `_TNT_SESSION_ID` the var also isn't mandatory, you don't have to set it if you want to make things simpler.
 
@@ -21,7 +21,7 @@ The next step before launching the game is to create MS Windows pipe named `\\.\
 If you see error messagebox like `gf init failed` at this points, it means that the game client couldn't locate `gameforge_client_api.dll` either in the location pointer via registry key, or inside the game folder itself.
 
 # The protocol
-You can read/write to the pipe using winapi calls like `ReadFile` or `WriteFile`. After the game client initialize it will send...
+You can read/write to the pipe using winapi calls like `ReadFile` or `WriteFile`. After the game client initialize, it will send...
 ## First message (isClientRunning):
 Message from client:
 
@@ -58,7 +58,7 @@ Message from client:
 {{\"id\":4,\"jsonrpc\":\"2.0\",\"method\":\"ClientLibrary.queryAuthorizationCode\",\"params\":{{\"sessionId\":\"SESSION_FROM_TNT_SESSION_ID\"}}}}
 ```
 
-You need to answer with the token obtained from GF API, you may use this library to obtain the token: [Nostale-Auth](https://github.com/morsisko/NosTale-Auth). Remember, you need the raw token (the UUID), not the hexlified one. If you create private server launcher you need to suply you own auth token, that you can later validate inside you login/game server:
+You need to answer with the token obtained from GF API, you may use this library to obtain the token: [Nostale-Auth](https://github.com/morsisko/NosTale-Auth). Remember, you need the raw token (the UUID), not the hexlified one. If you create private server launcher you need to suply you own auth token, that you can later validate inside your login/game server:
 
 ```
 {{\"id\":4,\"jsonrpc\":\"2.0\",\"result\":\"AUTH_TOKEN_IN_UUID_FORM\"}}
