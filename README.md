@@ -1,4 +1,4 @@
-# Nostale-Gfless
+# NosTale-Gfless
 A library that allows you to launch NosTale client without GF launcher, or create your own private server launcher that starts the game client in the server selection screen (you skip the login & pass window)
 
 # Emulating GF launcher
@@ -18,7 +18,7 @@ Please note, as long as you don't set those vars you are fine, however if you fo
 # The pipe
 The next step before launching the game is to create MS Windows pipe named `\\.\pipe\GameforgeClientJSONRPC` using `CreateNamedPipe` winapi func with duplex and byte modes. Then you need to launch the game client with `gf` parameter, and wait for the informations sent over pipe using `ConnectNamedPipe`
 
-If you see error messagebox like `gf init failed` at this points, it means that the game client couldn't locate `gameforge_client_api.dll` either in the location pointer via registry key, or inside the game folder itself.
+If you see error messagebox like `gf init failed` at this points, it means that the game client couldn't locate `gameforge_client_api.dll` either in the location pointed via registry key, or inside the game folder itself.
 
 # The protocol
 You can read/write to the pipe using winapi calls like `ReadFile` or `WriteFile`. After the game client initialize, it will send...
@@ -58,7 +58,7 @@ Message from client:
 {{\"id\":4,\"jsonrpc\":\"2.0\",\"method\":\"ClientLibrary.queryAuthorizationCode\",\"params\":{{\"sessionId\":\"SESSION_FROM_TNT_SESSION_ID\"}}}}
 ```
 
-You need to answer with the token obtained from GF API, you may use this library to obtain the token: [Nostale-Auth](https://github.com/morsisko/NosTale-Auth). Remember, you need the raw token (the UUID), not the hexlified one. If you create private server launcher you need to suply you own auth token, that you can later validate inside your login/game server:
+You need to answer with the token obtained from GF API, you may use this library to obtain the token: [Nostale-Auth](https://github.com/morsisko/NosTale-Auth). Remember, you need the raw token (the UUID), not the hexlified one. If you create private server launcher you need to suply your own auth token, that you can later validate inside your login/game server:
 
 ```
 {{\"id\":4,\"jsonrpc\":\"2.0\",\"result\":\"AUTH_TOKEN_IN_UUID_FORM\"}}
