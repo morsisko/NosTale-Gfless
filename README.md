@@ -86,6 +86,7 @@ It looks like it really doesn't matter what display name you will send, you will
 In order to run the example server you need to:
 * Install python3 (remember, set the checkbox with "Add to PATH")
 * Modify the very first line of server.py to **set the correct game path**
+* Modify the second line of the server.py to set the **correct code country**
 * Install the `requests` and `pywin32` libraries, you can do it easily using `pip`
 * Run the shell with admin permissions and execute the `python server.py <email> <password>`
 

@@ -1,4 +1,5 @@
 NOSTALE_PATH = "C:/GF/Nostale/pl-PL/NostaleClientX.exe"
+COUNTRY_CODE = "4"
 
 import win32pipe, win32file, win32api, pywintypes
 import sys
@@ -45,7 +46,7 @@ uid, displayName = acc_similar_to_email[0] #Select account that display name is 
 print("Selected account:", uid, "Name:", displayName)
 token = api.getToken(uid, True) #Get raw token from auth api
 
-subprocess.Popen([NOSTALE_PATH, "gf"]) #Launch NosTale with gf parameter
+subprocess.Popen([NOSTALE_PATH, "gf", COUNTRY_CODE]) #Launch NosTale with gf parameter
 
 print("Waiting for NosTale...")
 
